@@ -2,12 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieparser = require('cookie-parser');
 const cors = require('cors');
-
+require('dotenv').config();
 
 mongoose
-    .connect(
-        'mongodb+srv://adnukunhome7:Brazlow_567074@cluster0.hhcwc.mongodb.net/'
-    )
+    .connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected...'))
     .catch((error) => console.log(error));
 
@@ -32,4 +30,4 @@ App.use(
 App.use(cookieparser());
 App.use(express.json());
 
-App.listen(PORT, () => console.log('Server is running on the port ${PORT}'));
+App.listen(PORT, () => console.log('Server is running on the port 5000'));
