@@ -12,6 +12,7 @@ mongoose
 const App = express();
 const PORT = process.env.PORT || 5000;
 
+
 App.use(
     cors({
         origin: 'http://localhost:5173/',
