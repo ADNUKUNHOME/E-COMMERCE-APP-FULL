@@ -50,11 +50,15 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: aliceblue;
   cursor: pointer;
   transition: border-color 0.25s;
+  transition: box-shadow 0.3s ease;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: aliceblue;
+  color: #1a1a1a;
+  box-shadow: 0px 0px 20px rgba(36, 36, 36, 0.5);
 }
 button:focus,
 button:focus-visible {

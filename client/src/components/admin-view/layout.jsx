@@ -3,7 +3,7 @@ import AdminSideBar from "./sidebar";
 import AdminHeader from "./header";
 
 
-function AdminLayout() {
+function    AdminLayout() {
     return(
         <div className="flex min-h-screen w-full">
             <AdminSideBar/>

@@ -2,7 +2,9 @@
 
 function AdminDashBoard() {
     return(
-        <div>Admin Dashboard</div>
+        <div>
+            <h1>Admin Dashboard</h1>
+        </div>
     )
 }
 
