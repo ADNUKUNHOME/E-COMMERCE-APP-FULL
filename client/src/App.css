@@ -39,3 +39,14 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.toast-warning {
+  background-color: yellow;
+  color: black;
+}
+
+.toast-success {
+  background-color: lightgreen;
+  color: black;
+}

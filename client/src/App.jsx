@@ -17,16 +17,20 @@ import ShoppingListing from './pages/shopping-view/listing'
 import ShoppingHome from './pages/shopping-view/home'
 import CheckAuth from './components/commen/check-auth'
 import UnSupportPath from './pages/not-found/unsupport'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { checkAuth } from './store/auth-slice'
 
 
 function App() {
 
-  const isAuthenticated = false;
-  const user = 
-    {
-      name : 'brazlow',
-      role : 'user',
-    };
+    const {user, isAuthenticated} = useSelector(state => state.auth)
+    const dispatch = useDispatch();
+
+
+    useEffect(() => {
+      dispatch(checkAuth())
+    }, [dispatch])
   
 
   return (
