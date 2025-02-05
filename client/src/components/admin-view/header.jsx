@@ -1,10 +1,10 @@
 import { AlignJustify, LogOut } from "lucide-react";
 
 
-function AdminHeader() {
+function AdminHeader({setOpen}) {
     return(
        <header className="flex items-center justify-between px-4 py-3 bg-background border-b">
-          <button className="block lg:hidden">
+          <button onClick={() => setOpen(true)} className="block lg:hidden">
           <AlignJustify />
           <span className="sr-only">Toggle Menu</span>
           </button>

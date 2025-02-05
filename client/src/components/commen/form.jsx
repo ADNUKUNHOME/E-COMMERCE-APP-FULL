@@ -1,4 +1,12 @@
 
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
+  
 
 
 function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText }) {
@@ -25,35 +33,48 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                     />
                 )
                 break;
-            case 'select':
-                element = (
-                    <Select>
-                        <SelectTrigger className='w-full'>
-                            <selectValue placeholder={getcontrolItem.placeholder} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {
-                                // getcontrolItem.options && getcontrolItem.options.length
 
-                            }
-                        </SelectContent>
-                    </Select>
-                )
-                break;
-            case 'textarea':
-                element = (
-                    <textarea 
-                        name={getcontrolItem.name}
-                        placeholder={getcontrolItem.placeholder}
-                        id={getcontrolItem.name}
-                        value={value}
-                        onChange={event => setFormData({
-                            ...formData,
-                            [getcontrolItem.name] : event.target.value
-                        })}
-                    />
-                )
-                break;
+
+                case 'select':
+                    element = (
+                        <Select
+                            onValueChange={(selectedValue) => setFormData({
+                                ...formData,
+                                [getcontrolItem.name]: selectedValue
+                            })}
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder={getcontrolItem.placeholder} />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {getcontrolItem.options?.map(option => (
+                                    <SelectItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    );
+                    break;
+
+
+                case 'textarea':
+                    element = (
+                        <textarea
+                            name={getcontrolItem.name}
+                            placeholder={getcontrolItem.placeholder}
+                            id={getcontrolItem.name}
+                            value={value}
+                            onChange={event => setFormData({
+                                ...formData,
+                                [getcontrolItem.name]: event.target.value
+                            })}
+                            className="w-full placeholder-black px-3 py-2 bg-yellow-200 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                            rows={4} 
+                        />
+                    );
+                    break;
+    
 
             default:
                 element = (
