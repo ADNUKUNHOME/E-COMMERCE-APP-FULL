@@ -4,6 +4,7 @@ const cookieparser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
 const authRouter = require('./routes/auth/auth-routes')
+const adminProductsRoutes = require('./routes/admin/admin-routes');
 
 mongoose
     .connect(process.env.MONGO_URI)
@@ -32,5 +33,6 @@ App.use(
 App.use(cookieparser());
 App.use(express.json());
 App.use('/api/auth', authRouter);
+App.use('/api/admin/products', adminProductsRoutes )
 
 App.listen(PORT, () => console.log('Server is running on the port 5000'));

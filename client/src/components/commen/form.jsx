@@ -29,7 +29,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                             [getcontrolItem.name] : event.target.value
                         })}
 
-                        className="w-full placeholder-black  px-3 py-2 bg-yellow-200 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary autocomplete"
+                        className="w-full placeholder-black   px-3 py-2 bg-yellow-200 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary autocomplete"
                     />
                 )
                 break;
@@ -38,20 +38,24 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                 case 'select':
                     element = (
                         <Select
-                            onValueChange={(selectedValue) => setFormData({
+                            onValueChange={(value) => setFormData({
                                 ...formData,
-                                [getcontrolItem.name]: selectedValue
+                                [getcontrolItem.name]: value,
                             })}
+                            value={value}
                         >
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder={getcontrolItem.placeholder} />
+                            <SelectTrigger className="w-full select-component">
+                                <SelectValue placeholder={getcontrolItem.label} />
                             </SelectTrigger>
-                            <SelectContent>
-                                {getcontrolItem.options?.map(option => (
-                                    <SelectItem key={option.value} value={option.value}>
+                            <SelectContent className='bg-black text-amber-50'>
+                                {
+                                getcontrolItem.options && getcontrolItem.options.length > 0 ? 
+                                getcontrolItem.options.map(option => (
+                                    <SelectItem  key={option.id} value={option.id}>
                                         {option.label}
                                     </SelectItem>
-                                ))}
+                                )) : null  }
+                            
                             </SelectContent>
                         </Select>
                     );
