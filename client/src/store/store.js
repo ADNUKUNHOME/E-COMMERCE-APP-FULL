@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './auth-slice';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // Uses localStorage
+import storage from 'redux-persist/lib/storage';
+import AdminProductsSlice from './admin/products-slice'
 
 const persistConfig = {
-    key: 'auth',   // The key under which the data will be stored in localStorage
-    storage,       // Defines where the data is stored (localStorage by default)
-    whitelist: ['isAuthenticated', 'user'] // Only persist auth-related data
+    key: 'auth',  
+    storage,      
+    whitelist: ['isAuthenticated', 'user']
 };
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
@@ -14,6 +15,7 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 const store = configureStore({
     reducer: {
         auth: persistedReducer,
+        adminProducts: AdminProductsSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
