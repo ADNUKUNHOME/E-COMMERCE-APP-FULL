@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 
 
-function AdminProductTile({product, setFormData, setopenCreateProductDialoge, setCurrentEditId   }) {
+function AdminProductTile({product, setFormData, setopenCreateProductDialoge, setCurrentEditId, handleDeleteBtn   }) {
 
 
     return (
@@ -26,6 +25,7 @@ function AdminProductTile({product, setFormData, setopenCreateProductDialoge, se
             </CardContent>
             <CardFooter className='flex justify-between items-center'>
                 <button
+                    className="px-4 py-2"
                     onClick={() => {
                         setopenCreateProductDialoge(true);
                         setCurrentEditId(product?._id);
@@ -34,7 +34,9 @@ function AdminProductTile({product, setFormData, setopenCreateProductDialoge, se
                         });
                     }}
                 >Edit</button>
-                <button>Delete</button>
+                <button className="px-4 py-2" onClick={() => {
+                    handleDeleteBtn(product?._id);
+                }}>Delete</button>
             </CardFooter>
         </div>
     </Card>

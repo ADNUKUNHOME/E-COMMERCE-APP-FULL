@@ -25,7 +25,7 @@ export const registerFormControls = [
 ]
 
 export const LoginFormControls = [
-    
+
     {
         name: 'email',
         label: 'email',
@@ -62,11 +62,11 @@ export const AddProductFormElements = [
         name: 'category',
         componentType: 'select',
         options: [
-            { id: 'men', label: 'Men'},
-            { id: 'women', label: 'Women'},
-            { id: 'kids', label: 'Kids'},
-            { id: 'accessories', label: 'Accessories'},
-            { id: 'footwear', label: 'Footwear'},
+            { id: 'men', label: 'Men' },
+            { id: 'women', label: 'Women' },
+            { id: 'kids', label: 'Kids' },
+            { id: 'accessories', label: 'Accessories' },
+            { id: 'footwear', label: 'Footwear' },
         ]
     },
     {
@@ -74,14 +74,14 @@ export const AddProductFormElements = [
         name: 'brand',
         componentType: 'select',
         options: [
-            { id: 'nike', label: 'Nike'},
-            { id: 'adidas', label: 'Adidas'},
-            { id: 'puma', label: 'Puma'},
-            { id: 'levi', label: 'Levi'},
-            { id: 'zara', label: 'Zara'},
-            { id: 'h&m', label: 'H&M'},
+            { id: 'nike', label: 'Nike' },
+            { id: 'adidas', label: 'Adidas' },
+            { id: 'puma', label: 'Puma' },
+            { id: 'levi', label: 'Levi' },
+            { id: 'zara', label: 'Zara' },
+            { id: 'h&m', label: 'H&M' },
         ]
-    }, 
+    },
     {
         label: 'Prize',
         name: 'prize',
@@ -103,6 +103,68 @@ export const AddProductFormElements = [
         type: 'number',
         placeholder: 'Enter Total Stock'
     },
-   
-   
+
+
 ]
+
+
+export const shoppingViewHeaderMenuItems = [
+    {
+        id: 'home',
+        label: 'Home',
+        path: '/shope/home'
+    },
+    {
+        id: 'men',
+        label: 'Men',
+        path: '/shope/listing'
+    },
+    {
+        id: 'women',
+        label: 'Women',
+        path: '/shope/listing'
+    },
+    {
+        id: 'kids',
+        label: 'kids',
+        path: '/shope/listing'
+    },
+    {
+        id: 'accessories',
+        label: 'Accessories',
+        path: '/shope/listing'
+    },
+    {
+        id: 'footwear',
+        label: 'Footwear',
+        path: '/shope/listing'
+    }
+]
+
+
+export const filterOption = {
+    categories: [
+      { id: "men", label: "Men" },
+      { id: "women", label: "Women" },
+      { id: "kids", label: "Kids" },
+      { id: "accessories", label: "Accessories" },
+      { id: "footwear", label: "Footwear" },
+    ],
+    brands: [
+      { id: "nike", label: "Nike" },
+      { id: "adidas", label: "Adidas" },
+      { id: "puma", label: "Puma" },
+      { id: "levi", label: "Levi's" },
+      { id: "zara", label: "Zara" },
+      { id: "h&m", label: "H&M" },
+    ],
+  };
+  
+
+  export const sortOptions = [
+    { id: 'price-lowtohigh', label: 'Price: Low To High'},
+    { id: 'price-hightolow', label: 'Price: High To Low'},
+    { id: 'title-atoz', label: 'Title: A to Z'},
+    { id: 'title-ztoa', label: 'Title: Z to A'},
+
+  ]

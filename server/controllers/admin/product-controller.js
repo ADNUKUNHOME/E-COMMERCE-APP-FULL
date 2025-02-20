@@ -76,8 +76,8 @@ const editProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const { image, title, description, category, brand, prize, salePrize, totalStock } = req.body;
-
-        // ✅ Use findByIdAndUpdate for efficiency
+        
+        // ✅ Fix: Ensure the update happens correctly
         const updatedProduct = await product.findByIdAndUpdate(
             id,
             { $set: { image, title, description, category, brand, prize, salePrize, totalStock } },
@@ -85,9 +85,11 @@ const editProduct = async (req, res) => {
         );
 
         if (!updatedProduct) {
+            console.error("Product Not Found:", id);
             return res.status(404).json({ success: false, message: "Product not found" });
         }
 
+        console.log("Updated Product in DB:", updatedProduct);
         res.status(200).json({ success: true, data: updatedProduct });
 
     } catch (error) {
@@ -102,24 +104,21 @@ const editProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
-        const product = await product.findByIdAndUpdate(id);
-        if(!product) return res.status(404).json({
-            success : false,
-            message : 'product not available'
-        });
+        console.log("Received delete request for ID:", id); // Debugging line
+        
+        const deletedProduct = await product.findByIdAndDelete(id);
+        
+        if (!deletedProduct) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
 
-        res.status(200).json({
-            success : true,
-            message  : 'product deleted successfully'
-        })
+        res.status(200).json({ success: true, message: "Product deleted successfully" });
 
     } catch (e) {
         console.log(e);
-        res.status(500).json({
-            success : false,
-            message : 'some error occured...'
-        })
+        res.status(500).json({ success: false, message: "Some error occurred..." });
     }
-}
+};
+
 
 module.exports = { handleImageUpload, addProduct, fetchAllProducts, editProduct, deleteProduct }

@@ -9,7 +9,7 @@ import {
   
 
 
-function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText }) {
+function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText, isBtnDisabled }) {
 
     function renderInputsByComponentType(getcontrolItem) {
         let element = null;
@@ -113,7 +113,8 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                     )
                 }
             </div>
-            <button type="submit" className="mt-10 w-full">{buttonText || 'Submit'}</button>
+            
+            <button disabled={isBtnDisabled} type="submit" className={`px-4 py-2 mt-10 w-full ${isBtnDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>{buttonText || 'Submit'}</button>
         </form>
     )
 }

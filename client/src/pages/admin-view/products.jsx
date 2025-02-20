@@ -2,7 +2,7 @@ import ProductImageUpload from "@/components/admin-view/image-upload";
 import CommonForm from "@/components/commen/form";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { AddProductFormElements } from "@/config";
-import { editProduct, fetchAllProducts } from "@/store/admin/products-slice";
+import { deleteProduct, editProduct, fetchAllProducts } from "@/store/admin/products-slice";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewProduct } from "../../store/admin/products-slice";
@@ -45,7 +45,6 @@ function Adminproducts() {
         dispatch(editProduct({
             id : currentEditId, formData
         })).then((data) => {
-            console.log(data);
             
           if(data?.payload?.success) {
             dispatch(fetchAllProducts());
@@ -71,14 +70,29 @@ function Adminproducts() {
                 })
             }
             
-        })
+        })  
+    }
+
+    function handleDeleteBtn(getProductId) {
+        console.log(getProductId);
+        
+        dispatch(deleteProduct(getProductId)).then((data) => {
+            console.log('got product id:', data);
+            
+            if(data?.payload?.success) {
+                dispatch(fetchAllProducts());
+            }
+        })        
+    }
+
+    function isFormValid() {
+        return Object.keys(formData).map((key) => formData[key] !== '' ).every((item) => item);
     }
 
     useEffect(() => {
-        dispatch(fetchAllProducts())
+        dispatch(fetchAllProducts());
     }, [dispatch]);
 
-    console.log(uploadedImageUrl , productList, 'productList' );
     
 
     return <Fragment>
@@ -90,7 +104,14 @@ function Adminproducts() {
         <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-4">
             {
                 productList && productList.length > 0 ?
-                productList.map(productItem => <AdminProductTile     key={productItem.id} setFormData={setFormData} setopenCreateProductDialoge={setopenCreateProductDialoge} setCurrentEditId={setCurrentEditId} product={productItem} /> ) : null 
+                productList.map(productItem => <AdminProductTile
+                         key={productItem._id}
+                         setFormData={setFormData} 
+                         setopenCreateProductDialoge={setopenCreateProductDialoge} 
+                         setCurrentEditId={setCurrentEditId} 
+                         product={productItem} 
+                         handleDeleteBtn={handleDeleteBtn}
+                         /> ) : null 
             }
         </div>
         <Sheet 
@@ -126,6 +147,7 @@ function Adminproducts() {
                         buttonText={currentEditId !== null ? 'Edit' : 'Add'}
                         formControls={AddProductFormElements}
                         onSubmit={onSubmit}
+                        isBtnDisabled={!isFormValid()}
 
                     />
                 </div>

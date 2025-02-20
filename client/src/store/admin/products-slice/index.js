@@ -23,16 +23,19 @@ export const fetchAllProducts = createAsyncThunk('/product/fetchallproducts', as
     return result?.data;
 })
 
-export const editProduct = createAsyncThunk('/product/editProduct', async ({id, formData}) => {
-    const result  = await axios.put(`http://localhost:5000/api/admin/products/edit/${id}`, FormData, 
-        { headers: {
-            'content-type' : 'application/json'
-        }}
+export const editProduct = createAsyncThunk('/product/editProduct', async ({ id, formData }) => {
+    const result = await axios.put(
+        `http://localhost:5000/api/admin/products/edit/${id}`,
+        JSON.stringify(formData),  // Convert to JSON
+        { 
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
     );
-    console.log('PUT RESPONSE:', result?.data);
-    
     return result?.data;
-})
+});
+
 
 export const deleteProduct = createAsyncThunk('/product/deleteProduct', async (id) => {
     const result  = await axios.delete(`http://localhost:5000/api/admin/products/delete/${id}`
@@ -48,9 +51,13 @@ const AdminProductsSlice = createSlice({
         builder.addCase(fetchAllProducts.pending, (state) => {
             state.isLoading = true
         }).addCase(fetchAllProducts.fulfilled, (state, action) => {
+
+            
             
             state.isLoading = false,
             state.productList = action.payload.data;
+            
+            console.log('productList:', state.productList );
 
         }).addCase(fetchAllProducts.rejected, (state) => {            
             
