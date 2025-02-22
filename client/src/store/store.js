@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import AdminProductsSlice from './admin/products-slice'
 import shopeProductsSlice from './shope/products-slice'
+import shopeCartSlice from './shope/cart-slice'
 
 const persistConfig = {
     key: 'auth',  
@@ -17,7 +18,8 @@ const store = configureStore({
     reducer: {
         auth: persistedReducer,
         adminProducts: AdminProductsSlice,
-        shopeProducts: shopeProductsSlice
+        shopeProducts: shopeProductsSlice,
+        shopeCart: shopeCartSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

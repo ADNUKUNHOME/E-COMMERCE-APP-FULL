@@ -7,6 +7,7 @@ import { shoppingViewHeaderMenuItems } from "@/config";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { logoutnUser } from "@/store/auth-slice";
+import UserCartWrapper from "./cart-wrapper";
 
 
 
@@ -35,10 +36,14 @@ function RightHeaderContent() {
 
 
     return <div className="flex flex-col lg:items-center lg:flex-row gap-4">
-        <Button variant='outline' className='text-black' size='icon'>
-            <ShoppingCart className="w-6 h-6" />
-            <span className="sr-only">Cart</span>
-        </Button>
+        <Sheet>
+            <Button variant='outline' className='text-black' size='icon'>
+                <ShoppingCart className="w-6 h-6" />
+                <span className="sr-only">Cart</span>
+            </Button>
+            <UserCartWrapper />
+        </Sheet>
+
         <DropdownMenu>
             <DropdownMenuTrigger asChild >
                 <Avatar className='bg-black'>
@@ -72,7 +77,7 @@ function ShoppingHeader() {
         <div className="flex h-full items-center justify-between px-4 md:px-6">
             <Link to="/shope/home" className="flex items-center gap-2 text-black" >
                 <HousePlug className="h-6 w-6" />
-                <span className="font-bold">Ecommerce</span>
+                <span className="font-bold">ECOMMERCE</span>
             </Link>
             <Sheet>
                 <SheetTrigger asChild >

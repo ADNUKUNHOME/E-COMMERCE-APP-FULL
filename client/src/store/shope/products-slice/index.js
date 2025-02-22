@@ -1,42 +1,84 @@
-import axios from "axios";
+    import axios from "axios";
 
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
+    import { createAsyncThunk } from "@reduxjs/toolkit";
+    import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    isLoading : false,
-    productList: []
-}
-
-
-export const fetchAllFilteredProducts = createAsyncThunk('/product/fetchallproducts', async () => {
-    const result  = await axios.get('http://localhost:5000/api/shope/products/get'
-    );
-    return result?.data;
-})
+    const initialState = {
+        isLoading : false,
+        productList: [],
+        productDetails: null
+    }
 
 
+    export const fetchAllFilteredProducts = createAsyncThunk(
+        '/product/fetchallproducts', 
+        async ({ filterParams, sortParams }) => {
     
-    const shoppingProductSlice  = createSlice({
-        name: 'shoppingProducts',
-        initialState,
-        reducers : {},
-        extraReducers : (builder) => {
-            builder.addCase(fetchAllFilteredProducts.pending, (state, action) => {
-                state.isLoading = true;
-            })
-           .addCase(fetchAllFilteredProducts.fulfilled, (state, action) => {
-            
-
-                state.isLoading = false,
-                state.productList = action.payload.data;
-            })
-           .addCase(fetchAllFilteredProducts.rejected, (state, action) => {
-            
-                state.isLoading = false,
-                state.productList = [];
-            })
+            const query = new URLSearchParams();
+    
+            for (const key in filterParams) {
+                if (Array.isArray(filterParams[key]) && filterParams[key].length > 0) {
+                    query.append(key, filterParams[key].join(',')); // Convert array to comma-separated string
+                }
+            }
+    
+            if (sortParams) {
+                query.append("sortBy", sortParams);
+            }
+    
+            console.log("🛠️ API Call URL:", `http://localhost:5000/api/shope/products/get?${query}`);
+    
+            const result = await axios.get(`http://localhost:5000/api/shope/products/get?${query}`);
+    
+            return result?.data;
         }
-    })
+    );
+        
 
-    export default shoppingProductSlice.reducer;
+    export const fetchProductDetails = createAsyncThunk(
+        '/product/fetchProductDetails', 
+        async (id) => {
+    
+    
+            const result = await axios.get(`http://localhost:5000/api/shope/products/get/${id}`);
+    
+            return result?.data;
+        }
+    );
+        
+        
+        const shoppingProductSlice  = createSlice({
+            name: 'shoppingProducts',
+            initialState,
+            reducers : {},
+            extraReducers : (builder) => {
+                builder.addCase(fetchAllFilteredProducts.pending, (state, action) => {
+                    state.isLoading = true;
+                })
+            .addCase(fetchAllFilteredProducts.fulfilled, (state, action) => {
+                
+
+                    state.isLoading = false,
+                    state.productList = action.payload.data;
+                })
+            .addCase(fetchAllFilteredProducts.rejected, (state, action) => {
+                
+                    state.isLoading = false,
+                    state.productList = [];
+                })
+                builder.addCase(fetchProductDetails.pending, (state, action) => {
+                    state.isLoading = true;
+                })
+            .addCase(fetchProductDetails.fulfilled, (state, action) => {
+                    state.isLoading = false,
+                    state.productDetails = action.payload.data;
+                })
+            .addCase(fetchProductDetails.rejected, (state, action) => {
+                
+                    state.isLoading = false,
+                    state.productDetails = null;
+                })
+            }
+        })
+
+        export default shoppingProductSlice.reducer;
