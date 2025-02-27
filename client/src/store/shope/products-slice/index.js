@@ -9,7 +9,6 @@
         productDetails: null
     }
 
-
     export const fetchAllFilteredProducts = createAsyncThunk(
         '/product/fetchallproducts', 
         async ({ filterParams, sortParams }) => {
@@ -18,21 +17,24 @@
     
             for (const key in filterParams) {
                 if (Array.isArray(filterParams[key]) && filterParams[key].length > 0) {
-                    query.append(key, filterParams[key].join(',')); // Convert array to comma-separated string
+                    query.set(key, filterParams[key].join(',')); // Convert array to a comma-separated string
                 }
             }
     
             if (sortParams) {
-                query.append("sortBy", sortParams);
+                query.set("sortBy", sortParams);
             }
     
-            console.log("🛠️ API Call URL:", `http://localhost:5000/api/shope/products/get?${query}`);
+            const apiUrl = `http://localhost:5000/api/shope/products/get?${query.toString()}`;
+            
+            console.log("🛠️ API Call URL:", apiUrl);
     
-            const result = await axios.get(`http://localhost:5000/api/shope/products/get?${query}`);
+            const result = await axios.get(apiUrl);
     
             return result?.data;
         }
     );
+    
         
 
     export const fetchProductDetails = createAsyncThunk(

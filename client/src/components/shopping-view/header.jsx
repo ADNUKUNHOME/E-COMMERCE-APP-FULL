@@ -8,6 +8,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { logoutnUser } from "@/store/auth-slice";
 import UserCartWrapper from "./cart-wrapper";
+import { useEffect, useState } from "react";
+import { fetchCartItems } from "@/store/shope/cart-slice";
 
 
 
@@ -26,22 +28,29 @@ function MenuItem() {
 function RightHeaderContent() {
 
     const { user } = useSelector(state => state.auth);
+    const [ openCartSheet, setOpenCartSheet ] = useState(false)
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { cartItems } = useSelector(state => state.shopeCart);
+
 
 
     function handleLogout() {
         dispatch(logoutnUser());
     }
 
+    useEffect(() => {
+        dispatch(fetchCartItems(user?.id))
+    }, [dispatch])
+
 
     return <div className="flex flex-col lg:items-center lg:flex-row gap-4">
-        <Sheet>
-            <Button variant='outline' className='text-black' size='icon'>
+        <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+            <Button onClick={() => setOpenCartSheet(true)} variant='outline' className='text-black' size='icon'>
                 <ShoppingCart className="w-6 h-6" />
                 <span className="sr-only">Cart</span>
             </Button>
-            <UserCartWrapper />
+            <UserCartWrapper cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}  />
         </Sheet>
 
         <DropdownMenu>

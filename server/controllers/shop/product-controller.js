@@ -1,4 +1,4 @@
-const product = require("../../models/product");
+const Product = require("../../models/product");
 
 const getFilteredProducts = async(req, res) => {
     try {
@@ -48,11 +48,9 @@ console.log("🛠️ Brands Received:", brands);
                 break;
         }
 
-        console.log("🛠️ MongoDB Query:", JSON.stringify(filters, null, 2));
 
-        const products = await product.find(filters).sort(sort)
+        const products = await Product.find(filters).sort(sort)
 
-        console.log("🛠️ Fetched Products:", products.length);
 
         res.status(200).json({
             success: true,
@@ -73,7 +71,7 @@ const getProductDetails = async (req, res) => {
         const { id } = req.params;
         const productData = await product.findById(id);
 
-        if(!product) return res.status(404).json({
+        if(!Product) return res.status(404).json({
             success : false,
             message : 'Product not found!'
         })

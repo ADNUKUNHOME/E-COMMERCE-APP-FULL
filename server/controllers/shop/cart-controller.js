@@ -8,7 +8,7 @@ const addToCart = async (req, res) => {
         const { userId, productId, quantity } = req.body
 
         if(!userId || !productId || quantity <= 0) {
-            res.status(400).json({
+           return res.status(400).json({
                 success : false,
                 message : 'Invalid data provided!'
             })
@@ -17,7 +17,7 @@ const addToCart = async (req, res) => {
         const productData = await product.findById(productId);
 
         if(!productData) {
-            res.status(404).json({
+           return res.status(404).json({
                 success : false,
                 message : 'product not found!'
             })
@@ -57,21 +57,25 @@ const fetchCartItems = async (req, res) => {
     try {
 
         const {userId} = req.params;
+        console.log(userId)
+
+        //console.log("Received userId:", req.params.userId);
+
 
         if(!userId) {
-            res.status(400).json({
+           return res.status(400).json({
                 success : false,
                 message : 'User id is mandetory'
             })
         }
 
         const cart = await Cart.findOne({userId}).populate({
-            path : 'item.productId',
+            path : 'items.productId',
             select : 'image title prize salePrize'
         })
 
         if(!cart) {
-            res.status(400).json({
+           return res.status(400).json({
                 success : false,
                 message : 'Cart not found!'
             })
@@ -117,7 +121,7 @@ const updateCartItemQty = async (req, res) => {
         const { userId, productId, quantity } = req.body
 
         if(!userId || !productId || quantity <= 0) {
-            res.status(400).json({
+           return res.status(400).json({
                 success : false,
                 message : 'Invalid data provided!'
             })
@@ -126,7 +130,7 @@ const updateCartItemQty = async (req, res) => {
         const cart = await Cart.findOne({userId})
 
         if(!cart) {
-            res.status(400).json({
+           return res.status(400).json({
                 success : false,
                 message : 'Cart not found!'
             })
@@ -182,20 +186,20 @@ const deleteCartItem = async (req, res) => {
         const {userId, productId} = req.params;
 
         if(!userId || !productId) {
-            res.status(400).json({
+          return  res.status(400).json({
                 success : false,
                 message : 'Invalid data provided!'
             })
         }
 
         const cart = await Cart.findOne({userId}).populate({
-                  path : 'item.productId',
+                  path : 'items.productId',
             select : 'image title prize salePrize'
         })
 
         
         if(!cart) {
-            res.status(400).json({
+          return  res.status(400).json({
                 success : false,
                 message : 'Cart not found!'
             })
@@ -205,8 +209,8 @@ const deleteCartItem = async (req, res) => {
 
         await cart.save();
 
-       await Cart.populate({
-            path : 'item.productId',
+       await cart.populate({
+            path : 'items.productId',
             select : 'image title prize salePrize'
         })
 
