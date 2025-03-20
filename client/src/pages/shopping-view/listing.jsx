@@ -94,7 +94,6 @@ function ShoppingListing() {
         if(productDetails !== null) setOpenDetaisDialog(true)
     }, [productDetails])
 
-    console.log(productDetails, "productDetails");
     
 
     return (

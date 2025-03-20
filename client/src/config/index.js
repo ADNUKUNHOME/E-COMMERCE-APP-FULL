@@ -168,3 +168,42 @@ export const filterOption = {
     { id: 'title-ztoa', label: 'Title: Z to A'},
 
   ]
+
+
+  export const addressFormControls = [
+    {
+        label: "Address",
+        name: "address",
+        componentType: "input",
+        type: "text",
+        placeholder: "Enter your address"
+    },
+    {
+        label: "City",
+        name: "city",
+        componentType: "input",
+        type: "text",
+        placeholder: "Enter your city"
+    },
+    {
+        label: "Pincode",
+        name: "pincode",
+        componentType: "input",
+        type: "number",
+        placeholder: "Enter your pincode"
+    },
+    {
+        label: "Phone",
+        name: "phone",
+        componentType: "input",
+        type: "tel",
+        placeholder: "Enter your phone number"
+    },
+    {
+        label: "Notes",
+        name: "notes",
+        componentType: "textarea",
+        type: "text",
+        placeholder: "Additional notes (optional)"
+    }
+];

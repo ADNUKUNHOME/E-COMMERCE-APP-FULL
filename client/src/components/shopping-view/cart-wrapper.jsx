@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { SheetContent, SheetHeader, SheetTitle }  from "../ui/sheet";
 import UserCartItemsContent from "./cart-items-content";
@@ -5,9 +6,14 @@ import UserCartItemsContent from "./cart-items-content";
 
 
 
-function UserCartWrapper({cartItems}) {
+function UserCartWrapper({cartItems, setOpenCartSheet}) {
 
-    console.log("Cart Items in Wrapper:", cartItems);
+    const navigate = useNavigate();
+
+    const totalCartAmount = cartItems && cartItems.length > 0 ?
+    cartItems.reduce((sum, currentItem) => sum + (
+        currentItem?.salePrize > 0 ? currentItem?.salePrize : currentItem?.prize
+    ) * currentItem?.quantity, 0 ) : 0;
 
 
     return <SheetContent className='sm:max-w-md'>
@@ -23,9 +29,12 @@ function UserCartWrapper({cartItems}) {
     <div className="mt-8 space-y-4">
         <div className="flex justify-between">
             <span className="font-bold">Total</span>
-            <span className="font-bold">$1000</span>
+            <span className="font-bold">${totalCartAmount}</span>
         </div>
-        <Button className='w-full mt-6 hover:text-black hover:bg-white'>Checkout</Button>
+        <Button onClick={() => {
+            navigate('/shope/checkout');
+            setOpenCartSheet(false);
+        }} className='w-full mt-6 hover:text-black hover:bg-white'>Checkout</Button>
     </div>
 
 </SheetContent>

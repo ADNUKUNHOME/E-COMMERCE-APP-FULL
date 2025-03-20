@@ -4,11 +4,39 @@ import { Button } from "../ui/button";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Separator } from "../ui/separator";
 import { Input } from "../ui/input";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, fetchCartItems } from "@/store/shope/cart-slice";
+import { useToast } from "@/hooks/use-toast";
+import { setProductDetails } from "@/store/shope/products-slice";
 
 
 function ProductDetailsDialog({ open, setOpen, productDetails }) {
+
+    const dispatch = useDispatch();
+    const { user } = useSelector(state => state.auth);
+    const { toast } = useToast();
+
+    function handleAddToCart(getProductId) {
+        dispatch(addToCart({ userId: user?.id, productId: getProductId, quantity: 1 })).then((data) => {
+            if (data?.payload?.success) {
+                dispatch(fetchCartItems(user?.id));
+                toast({
+                    title: 'Product is Added to Cart',
+
+                })
+            }
+        })
+    }
+
+
+    function handleDialogClose() {
+        setOpen(false);
+        dispatch(setProductDetails());
+    }
+
+
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={handleDialogClose}>
             <DialogContent className='grid grid-cols-1 md:grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]'>
                 {/* Product Image */}
                 <div className="relative overflow-hidden rounded-lg flex justify-center">
@@ -44,7 +72,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                         <span className="text-muted-foreground">(4.5)</span>
                     </div>
                     <div className="mt-5 mb-5">
-                        <Button className='hover:bg-white hover:text-black w-full'>
+                        <Button onClick={() => handleAddToCart(productDetails?._id)} className='hover:bg-white hover:text-black w-full'>
                             Add To Cart
                         </Button>
                     </div>

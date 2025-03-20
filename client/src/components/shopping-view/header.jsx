@@ -10,13 +10,30 @@ import { logoutnUser } from "@/store/auth-slice";
 import UserCartWrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
 import { fetchCartItems } from "@/store/shope/cart-slice";
-
+import { Label } from "../ui/label";
 
 
 function MenuItem() {
+
+        const navigate = useNavigate();
+
+    function handleNavigate(getCurrentMenuItem) {
+
+    
+        sessionStorage.removeItem('filters');
+        const currentFilter = getCurrentMenuItem.id !== 'home' ?
+        {
+            categories : [getCurrentMenuItem.id]
+        } : null
+    
+        sessionStorage.setItem('filters', JSON.stringify(currentFilter));
+    
+        navigate(getCurrentMenuItem.path);
+    }
+
     return <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
         {
-            shoppingViewHeaderMenuItems.map(menuItem => <Link className='text-sm font-medium text-black' key={menuItem.id} to={menuItem.path}>{menuItem.label}</Link>)
+            shoppingViewHeaderMenuItems.map(menuItem => <Label onClick={() => handleNavigate(menuItem)} className='text-sm font-medium cursor-pointer text-black' key={menuItem.id} >{menuItem.label}</Label>)
         }
     </nav >
 }
@@ -50,7 +67,7 @@ function RightHeaderContent() {
                 <ShoppingCart className="w-6 h-6" />
                 <span className="sr-only">Cart</span>
             </Button>
-            <UserCartWrapper cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}  />
+            <UserCartWrapper setOpenCartSheet={setOpenCartSheet} cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}  />
         </Sheet>
 
         <DropdownMenu>
@@ -80,7 +97,6 @@ function RightHeaderContent() {
 
 function ShoppingHeader() {
 
-    const { isAuthenticated } = useSelector(state => state.auth);
 
     return <header className="sticky top-0 h-16 z-40 w-full border-b bg-background ">
         <div className="flex h-full items-center justify-between px-4 md:px-6">

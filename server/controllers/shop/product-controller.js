@@ -69,7 +69,7 @@ console.log("🛠️ Brands Received:", brands);
 const getProductDetails = async (req, res) => {
     try {
         const { id } = req.params;
-        const productData = await product.findById(id);
+        const productData = await Product.findById(id);
 
         if(!Product) return res.status(404).json({
             success : false,
