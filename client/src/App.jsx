@@ -20,52 +20,54 @@ import UnSupportPath from './pages/not-found/unsupport'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { checkAuth } from './store/auth-slice'
+import PaypalReturnPage from './pages/shopping-view/paypal-return'
 
 
 function App() {
 
-    const {user, isAuthenticated} = useSelector(state => state.auth)
-    const dispatch = useDispatch();
+  const { user, isAuthenticated } = useSelector(state => state.auth)
+  const dispatch = useDispatch();
 
 
-    useEffect(() => {
-      dispatch(checkAuth())
-    }, [dispatch])
-  
+  useEffect(() => {
+    dispatch(checkAuth())
+  }, [dispatch])
+
 
   return (
     <div className='flex flex-col overflow-hidden bg-white'>
       <Routes>
         <Route path='/auth' element={
           <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-            <AuthLayout/>
+            <AuthLayout />
           </CheckAuth>
         }>
-          <Route path="login" element={<AuthLogin/>}/>
-          <Route path="register" element={<AuthRegister/>}/>
+          <Route path="login" element={<AuthLogin />} />
+          <Route path="register" element={<AuthRegister />} />
         </Route>
         <Route path="/admin" element={
           <CheckAuth isAuthenticated={isAuthenticated} user={user}>
             <AdminLayout />
           </CheckAuth>
         }>
-          <Route path="dashboard" element={<AdminDashBoard/>} />
-          <Route path="features" element={<AdminFeaturs/>} />
-          <Route path="orders" element={<AdminOrders/>} />
-          <Route path="products" element={<Adminproducts/>} />
+          <Route path="dashboard" element={<AdminDashBoard />} />
+          <Route path="features" element={<AdminFeaturs />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="products" element={<Adminproducts />} />
         </Route>
         <Route path="/shope" element={
           <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-            <ShoppingLayout/>
+            <ShoppingLayout />
           </CheckAuth>
         }>
-          <Route path='account' element={<ShoppingAccount/>} />
-          <Route path='checkout' element={<ShoppingCheckout/>} />
-          <Route path='home' element={<ShoppingHome/>} />
-          <Route path='listing' element={<ShoppingListing/>} />
+          <Route path='account' element={<ShoppingAccount />} />
+          <Route path='checkout' element={<ShoppingCheckout />} />
+          <Route path='home' element={<ShoppingHome />} />
+          <Route path='listing' element={<ShoppingListing />} />
+          <Route path='paypal-return' element={<PaypalReturnPage />} />
         </Route>
         <Route path='/unsupport' element={<UnSupportPath />}></Route>
-        <Route path='*' element={<NotFound/>}></Route>
+        <Route path='*' element={<NotFound />}></Route>
       </Routes>
     </div>
   )

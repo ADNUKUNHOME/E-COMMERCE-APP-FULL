@@ -6,10 +6,11 @@ import AdminProductsSlice from './admin/products-slice'
 import shopeProductsSlice from './shope/products-slice'
 import shopeCartSlice from './shope/cart-slice'
 import shopeAddressSlice from './shope/address-slice'
+import shopeOrderSlice from './shope/order-slice'
 
 const persistConfig = {
-    key: 'auth',  
-    storage,      
+    key: 'auth',
+    storage,
     whitelist: ['isAuthenticated', 'user']
 };
 
@@ -21,7 +22,8 @@ const store = configureStore({
         adminProducts: AdminProductsSlice,
         shopeProducts: shopeProductsSlice,
         shopeCart: shopeCartSlice,
-        shopeAddress: shopeAddressSlice
+        shopeAddress: shopeAddressSlice,
+        shopeOrder: shopeOrderSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

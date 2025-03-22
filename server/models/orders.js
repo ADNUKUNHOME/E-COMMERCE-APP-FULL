@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 
 const OrdersSchema = new mongoose.Schema({
     userId: String,
+    cartId: String,
     cartItems: [
         {
             productId: String,
             title: String,
             image: String,
             prize: String,
-            salePrize: String,
             quantity: Number
         }
     ],
