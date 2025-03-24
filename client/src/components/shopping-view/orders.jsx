@@ -1,13 +1,31 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import { Dialog } from "../ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
 import ShoppingOrderDetailsView from "./Order-Details"
 import { Button } from "../ui/button"
+import { useDispatch, useSelector } from "react-redux"
+import { getAllOrdersByUserId, getOrderDetails, resetOrderDetails } from "@/store/shope/order-slice"
+import { Badge } from "../ui/badge"
 
 const ShoppingOrders = () => {
 
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
+  const { orderList, orderDetails } = useSelector(state => state.shopeOrder);
+
+  function handleFetchOrderDetails(getId) {
+    dispatch(getOrderDetails(getId))
+  }
+
+  useEffect(() => {
+    if (orderDetails !== null) setOpenDetailsDialog(true)
+  }, [orderDetails])
+
+  useEffect(() => {
+    dispatch(getAllOrdersByUserId(user?.id))
+  }, dispatch)
 
   return (
     <Card>
@@ -28,18 +46,26 @@ const ShoppingOrders = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell>123456</TableCell>
-              <TableCell>12/23/34</TableCell>
-              <TableCell>in process</TableCell>
-              <TableCell>$2000</TableCell>
-              <TableCell>
-                <Dialog open={openDetailsDialog} onOpenChange={setOpenDetailsDialog}>
-                  <Button onClick={() => setOpenDetailsDialog(true)}>Veiw Details</Button>
-                  <ShoppingOrderDetailsView />
-                </Dialog>
-              </TableCell>
-            </TableRow>
+            {
+              orderList && orderList.length > 0 ?
+                orderList.map(orderItem => <TableRow>
+                  <TableCell>{orderItem?._id}</TableCell>
+                  <TableCell>{orderItem?.orderDate.split('T')[0]}</TableCell>
+                  <TableCell><Badge className={`py-1 px-3 ${orderItem?.orderStatus === 'Confirmed' ? 'bg-green-500' : orderItem?.orderStatus === 'rejected' ? 'bg-red-600' : 'bg-black' }`}>{orderItem?.orderStatus}</Badge>  </TableCell>
+                  <TableCell>{orderItem?.totalAmount}</TableCell>
+                  <TableCell>
+                    <Dialog open={openDetailsDialog} onOpenChange={()=> {
+                      setOpenDetailsDialog(false)
+                      dispatch(resetOrderDetails())
+                    }}>
+                      <Button className='hover:bg-slate-100' onClick={() => handleFetchOrderDetails(orderItem?._id)}>Veiw Details</Button>
+                      <ShoppingOrderDetailsView orderDetails={orderDetails} />
+                    </Dialog>
+                  </TableCell>
+                </TableRow>)
+                : null
+            }
+
           </TableBody>
         </Table>
       </CardContent>

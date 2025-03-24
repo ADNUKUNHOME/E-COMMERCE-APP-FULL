@@ -3,6 +3,8 @@ import authReducer from './auth-slice';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import AdminProductsSlice from './admin/products-slice'
+import AdminOrdersSlice from './admin/order-slice'
+
 import shopeProductsSlice from './shope/products-slice'
 import shopeCartSlice from './shope/cart-slice'
 import shopeAddressSlice from './shope/address-slice'
@@ -19,7 +21,10 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 const store = configureStore({
     reducer: {
         auth: persistedReducer,
+
         adminProducts: AdminProductsSlice,
+        adminOrders: AdminOrdersSlice,
+        
         shopeProducts: shopeProductsSlice,
         shopeCart: shopeCartSlice,
         shopeAddress: shopeAddressSlice,

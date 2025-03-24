@@ -1,5 +1,6 @@
 const paypal = require('../../helpers/paypal');
 const Order = require('../../models/orders');
+const Cart = require('../../models/Cart');
 
 const createOrder = async (req, res) => {
     try {
@@ -98,6 +99,32 @@ const createOrder = async (req, res) => {
 
 const capturePayment = async (req, res) => {
     try {
+        const { paymentId, payerId, orderId } = req.body;
+
+        const order = await Order.findById(orderId);
+
+        if (!order) {
+            res.status(404).json({
+                success: false,
+                message: 'Order cannot be found'
+            })
+        }
+
+        order.paymentStatus = 'Paid';
+        order.orderStatus = 'Confirmed';
+        order.paymentId = paymentId;
+        order.payerId = payerId;
+
+        const getCartId = order.cartId;
+        await Cart.findByIdAndDelete(getCartId);
+
+        await order.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Order Conformed Successfully',
+            data: order
+        })
     } catch (e) {
         console.log(e);
         res.status(500).json({
@@ -107,4 +134,60 @@ const capturePayment = async (req, res) => {
     }
 }
 
-module.exports = { createOrder, capturePayment };
+const geAllOrdersByUser = async (req, res) => {
+    try {
+
+        const { userId } = req.params;
+        const orders = await Order.find({ userId });
+
+        if(!orders.length) {
+            return res.status(404).json({
+                success: false,
+                message: 'No Orders Found'
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            data: orders
+        })
+
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            success: false,
+            message: 'some error occured'
+        }
+)}
+}
+
+
+const getOrderDetails = async (req, res) => {
+    try {
+
+        const { id } = req.params;
+        const order = await Order.findById(id);
+
+        if(!order) {
+            return res.status(404).json({
+                success: false,
+                message: 'Order not found'
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            data: order
+        })
+
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            success: false,
+            message: 'some error occured'
+        }
+    )}
+}
+
+
+    module.exports = { createOrder, capturePayment, geAllOrdersByUser, getOrderDetails }

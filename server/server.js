@@ -5,6 +5,8 @@ const cors = require('cors');
 require('dotenv').config();
 const authRouter = require('./routes/auth/auth-routes');
 const adminProductsRoutes = require('./routes/admin/admin-routes');
+const adminOrdersRoutes = require('./routes/admin/order-routes');
+
 const shopProductsRouter = require('./routes/shop/product-routes');
 const shopCartsRouter = require('./routes/shop/cart-routes');
 const shopAddressRouter = require('./routes/shop/address-routes');
@@ -38,6 +40,8 @@ App.use(cookieparser());
 App.use(express.json());
 App.use('/api/auth', authRouter);
 App.use('/api/admin/products', adminProductsRoutes)
+App.use('/api/admin/orders', adminOrdersRoutes)
+
 App.use('/api/shope/products', shopProductsRouter)
 App.use('/api/shope/cart', shopCartsRouter)
 App.use('/api/shope/address', shopAddressRouter);
