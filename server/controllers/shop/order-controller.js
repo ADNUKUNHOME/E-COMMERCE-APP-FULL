@@ -1,6 +1,7 @@
 const paypal = require('../../helpers/paypal');
 const Order = require('../../models/orders');
 const Cart = require('../../models/Cart');
+const Product = require('../../models/product');
 
 const createOrder = async (req, res) => {
     try {
@@ -115,6 +116,22 @@ const capturePayment = async (req, res) => {
         order.paymentId = paymentId;
         order.payerId = payerId;
 
+        for (let item of order.cartItems) {
+            let product = await Product.findById(item.productId);
+
+            if (!product) {
+                res.status(404).json({
+                    success: false,
+                    message: `Not enough Stock for this product ${product.title}`
+                })
+            }
+
+            product.totalStock -= item.quantity;
+
+            await product.save();
+        }
+
+
         const getCartId = order.cartId;
         await Cart.findByIdAndDelete(getCartId);
 
@@ -140,7 +157,7 @@ const geAllOrdersByUser = async (req, res) => {
         const { userId } = req.params;
         const orders = await Order.find({ userId });
 
-        if(!orders.length) {
+        if (!orders.length) {
             return res.status(404).json({
                 success: false,
                 message: 'No Orders Found'
@@ -158,7 +175,8 @@ const geAllOrdersByUser = async (req, res) => {
             success: false,
             message: 'some error occured'
         }
-)}
+        )
+    }
 }
 
 
@@ -168,7 +186,7 @@ const getOrderDetails = async (req, res) => {
         const { id } = req.params;
         const order = await Order.findById(id);
 
-        if(!order) {
+        if (!order) {
             return res.status(404).json({
                 success: false,
                 message: 'Order not found'
@@ -186,8 +204,9 @@ const getOrderDetails = async (req, res) => {
             success: false,
             message: 'some error occured'
         }
-    )}
+        )
+    }
 }
 
 
-    module.exports = { createOrder, capturePayment, geAllOrdersByUser, getOrderDetails }
+module.exports = { createOrder, capturePayment, geAllOrdersByUser, getOrderDetails }

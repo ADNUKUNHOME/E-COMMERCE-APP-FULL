@@ -9,6 +9,7 @@ import shopeProductsSlice from './shope/products-slice'
 import shopeCartSlice from './shope/cart-slice'
 import shopeAddressSlice from './shope/address-slice'
 import shopeOrderSlice from './shope/order-slice'
+import shopeSearchSlice from './shope/search-slice'
 
 const persistConfig = {
     key: 'auth',
@@ -28,7 +29,8 @@ const store = configureStore({
         shopeProducts: shopeProductsSlice,
         shopeCart: shopeCartSlice,
         shopeAddress: shopeAddressSlice,
-        shopeOrder: shopeOrderSlice
+        shopeOrder: shopeOrderSlice,
+        shopeSearch: shopeSearchSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

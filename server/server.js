@@ -11,6 +11,7 @@ const shopProductsRouter = require('./routes/shop/product-routes');
 const shopCartsRouter = require('./routes/shop/cart-routes');
 const shopAddressRouter = require('./routes/shop/address-routes');
 const shopOrderRouter = require('./routes/shop/order-routes');
+const shopSearchRouter = require('./routes/shop/search-routes');
 
 mongoose
     .connect(process.env.MONGO_URI)
@@ -46,5 +47,6 @@ App.use('/api/shope/products', shopProductsRouter)
 App.use('/api/shope/cart', shopCartsRouter)
 App.use('/api/shope/address', shopAddressRouter);
 App.use('/api/shope/order', shopOrderRouter);
+App.use('/api/shope', shopSearchRouter);
 
 App.listen(PORT, () => console.log('Server is running on the port 5000'));

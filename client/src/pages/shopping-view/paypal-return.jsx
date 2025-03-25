@@ -31,7 +31,7 @@ const PaypalReturnPage = () => {
 
   return <Card>
     <CardHeader>
-      <CardTitle>Processing The Payment... Plaese Wait!</CardTitle>
+      <CardTitle>Processing The Payment... Please Wait!</CardTitle>
     </CardHeader>
   </Card>
 }

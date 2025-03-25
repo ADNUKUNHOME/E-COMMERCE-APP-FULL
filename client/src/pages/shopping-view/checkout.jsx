@@ -26,7 +26,7 @@ function ShoppingCheckout() {
 
     function handleInitalPaypalPayment() {
 
-        if(!cartItems.length > 0) {
+        if(cartItems.length === 0) {
             toast({
                 title: 'Cart Items are Empty! Please Add Items to Proceed',
                 variant: 'destructive'
