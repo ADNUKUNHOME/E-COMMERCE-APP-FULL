@@ -5,7 +5,7 @@ function AuthLayout() {
         <div className="flex min-h-screen w-screen">
             {/* Left Side: Welcome Section */}
             <div className="hidden lg:flex items-center justify-center flex-grow bg-black">
-                <div className="max-w-lg space-y-6 text-center text-primary-foreground px-12">
+                <div className="max-w-lg space-y-6 text-center text-primary-foreground dark:text-white px-12">
                     <h1 className="text-4xl font-extrabold tracking-tight">
                         Welcome to Ecommerce Shopping
                     </h1>

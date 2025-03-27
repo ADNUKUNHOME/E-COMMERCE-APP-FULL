@@ -96,12 +96,12 @@ function ShoppingHome() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <div className="relative flex justify-between w-full h-[600px] overflow-hidden bg-red-100">
-                <div className="flex flex-col pl-20 gap-5 items-center justify-center sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-gray-600">
+            <div className="relative flex justify-between w-full h-[600px] overflow-hidden bg-gradient-to-r from-violet-200 to-pink-200 dark:bg-gradient-to-r dark:from-violet-700 dark:to-pink-700">
+                <div className="flex flex-col pl-20 gap-5 items-center justify-center sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-gray-600 dark:text-gray-400">
                     <p>We Picked Every Item</p>
                     <p>With Care, <span className='font-bold text-gray-800'>You Must Try</span></p>
                     <p>At least once</p>
-                    <button onClick={() => navigate('/shope/listing')} className='py-3 px-7 flex gap-2 text-sm mt-4'>Go To Collections <ArrowRight /></button>
+                    <button onClick={() => navigate('/shope/listing')} className='py-3 px-7 flex gap-2 text-sm mt-'>Go To Collections <ArrowRight /></button>
                 </div>
 
                 {/* Image Slider */}
@@ -136,12 +136,12 @@ function ShoppingHome() {
             </div>
 
             {/* Categories Section */}
-            <section className="py-12 bg-gray-50">
+            <section className="py-12">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold mb-8 text-center">Shop By Category</h2>
+                    <h2 className="text-3xl font-bold mb-8 text-black dark:text-white text-center">Shop By Category</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                         {categoriesWithIcon.map(item => (
-                            <Card onClick={() => handleNavigateToListingPage(item, 'categories')} key={item.id} className='cursor-pointer hover:shadow-lg transition-shadow'>
+                            <Card onClick={() => handleNavigateToListingPage(item, 'categories')} key={item.id} className='cursor-pointer hover:shadow-lg transition-shadow  dark:hover:bg-gray-800 dark:hover:shadow-2xl dark:transition-shadow'>
                                 <CardContent className='flex flex-col items-center justify-center p-6'>
                                     <item.icon className='w-12 h-12 mb-4 text-primary' />
                                     <span className='font-bold'>{item.label}</span>
@@ -151,10 +151,10 @@ function ShoppingHome() {
                     </div>
                 </div>
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold mt-8 mb-8 text-center">Shop By Brand</h2>
+                    <h2 className="text-3xl font-bold mt-8 mb-8 text-black dark:text-white text-center">Shop By Brand</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                         {brandWithIcon.map(item => (
-                            <Card onClick={() => handleNavigateToListingPage(item, 'brands')} key={item.id} className='cursor-pointer hover:shadow-lg transition-shadow'>
+                            <Card onClick={() => handleNavigateToListingPage(item, 'brands')} key={item.id} className='cursor-pointer hover:shadow-lg transition-shadow dark:hover:bg-gray-800 dark:hover:shadow-2xl dark:transition-shadow'>
                                 <CardContent className='flex flex-col items-center justify-center p-6'>
                                     <item.icon className='w-12 h-12 mb-4 text-primary' />
                                     <span className='font-bold'>{item.label}</span>

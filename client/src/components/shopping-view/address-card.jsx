@@ -5,7 +5,7 @@ import { Label } from "../ui/label"
 
 const AddressCard = ({ addressInfo, handleDeleteAddress, handleEditAddress, setCurrentSelectedAddress, selectedId }) => {
     return (
-        <Card className={`cursor-pointer ${selectedId?._id === addressInfo?._id ? 'border-red-900 border-[4px]' : 'border-black'}`} onClick={setCurrentSelectedAddress ? () => setCurrentSelectedAddress(addressInfo) : null}>
+        <Card className={`cursor-pointer ${selectedId?._id === addressInfo?._id ? 'border-red-900 border-[4px] dark:border-gray-600' : 'border-black dark:border-gray-600'}`} onClick={setCurrentSelectedAddress ? () => setCurrentSelectedAddress(addressInfo) : null}>
             <CardContent className={`${selectedId === addressInfo?._id ? 'border-black' : ''} grid p-4 gap-6`}>
                 <Label>Address : {addressInfo?.address}</Label>
                 <Label>City : {addressInfo?.city}</Label>

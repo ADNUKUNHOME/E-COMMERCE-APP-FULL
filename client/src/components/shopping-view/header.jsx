@@ -13,6 +13,10 @@ import { fetchCartItems } from "@/store/shope/cart-slice";
 import { Label } from "../ui/label";
 
 
+import { useTheme } from "@/context/ThemeContext";
+import { Moon, Sun } from "lucide-react";
+
+
 function MenuItem() {
 
         const navigate = useNavigate();
@@ -39,7 +43,7 @@ function MenuItem() {
 
     return <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
         {
-            shoppingViewHeaderMenuItems.map(menuItem => <Label onClick={() => handleNavigate(menuItem)} className='text-sm font-medium cursor-pointer text-black' key={menuItem.id} >{menuItem.label}</Label>)
+            shoppingViewHeaderMenuItems.map(menuItem => <Label onClick={() => handleNavigate(menuItem)} className='text-sm font-medium cursor-pointer text-black dark:text-white' key={menuItem.id} >{menuItem.label}</Label>)
         }
     </nav >
 }
@@ -57,6 +61,8 @@ function RightHeaderContent() {
     const { cartItems } = useSelector(state => state.shopeCart);
 
 
+    const { theme, toggleTheme } = useTheme();
+
 
     function handleLogout() {
         dispatch(logoutnUser());
@@ -68,8 +74,14 @@ function RightHeaderContent() {
 
 
     return <div className="flex flex-col lg:items-center lg:flex-row gap-4">
+        <button
+        onClick={toggleTheme}
+        className="p-2 rounded-full text-black border-2 bg-gray-300 dark:bg-gray-700 dark:text-white"
+      >
+        {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+      </button>
         <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
-            <Button onClick={() => setOpenCartSheet(true)} variant='outline' className='text-black relative' size='icon'>
+            <Button onClick={() => setOpenCartSheet(true)} variant='outline' className='text-black dark:text-white relative' size='icon'>
                 <ShoppingCart className="w-6 h-6" />
                 <span className='absolute top-[-5px] right-[2px] text-sm font-bold'>{cartItems?.items?.length}</span>
                 <span className="sr-only">Cart</span>
@@ -80,7 +92,7 @@ function RightHeaderContent() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild >
                 <Avatar className='bg-black'>
-                    <AvatarFallback className='bg-black text-white font-extrabold'>
+                    <AvatarFallback className='bg-black text-white dark:bg-violet-900 font-extrabold'>
                         {user?.userName?.[0]?.toUpperCase() || "BR"}
                     </AvatarFallback>
                 </Avatar>
@@ -107,13 +119,13 @@ function ShoppingHeader() {
 
     return <header className="sticky top-0 h-16 z-40 w-full border-b bg-background ">
         <div className="flex h-full items-center justify-between px-4 md:px-6">
-            <Link to="/shope/home" className="flex items-center gap-2 text-black" >
+            <Link to="/shope/home" className="flex items-center gap-2 text-black dark:text-white" >
                 <HousePlug className="h-6 w-6" />
                 <span className="font-bold">ECOMMERCE</span>
             </Link>
             <Sheet>
                 <SheetTrigger asChild >
-                    <Button variant='outline' size='icon' className='lg:hidden text-black'>
+                    <Button variant='outline' size='icon' className='lg:hidden text-black dark:text-white'>
                         <Menu className="w-6 h-6" />
                         <span className="sr-only">Toggle Header Menu</span>
                     </Button>

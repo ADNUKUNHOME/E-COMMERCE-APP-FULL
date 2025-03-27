@@ -34,7 +34,7 @@ function UserCartWrapper({cartItems, setOpenCartSheet}) {
         <Button onClick={() => {
             navigate('/shope/checkout');
             setOpenCartSheet(false);
-        }} className='w-full mt-6 hover:text-black hover:bg-white'>Checkout</Button>
+        }} className='w-full mt-6 hover:text-black hover:bg-white dark:hover:bg-violet-950 dark:hover:text-white'>Checkout</Button>
     </div>
 
 </SheetContent>

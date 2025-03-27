@@ -29,7 +29,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
                             [getcontrolItem.name] : event.target.value
                         })}
 
-                        className="w-full placeholder-black   px-3 py-2 bg-yellow-200 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary autocomplete"
+                        className="w-full placeholder-black  dark:text-black  px-3 py-2 bg-white border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary autocomplete"
                     />
                 )
                 break;
@@ -73,7 +73,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
                                 ...formData,
                                 [getcontrolItem.name]: event.target.value
                             })}
-                            className="w-full placeholder-black px-3 py-2 bg-yellow-200 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                            className="w-full placeholder-black px-3 py-2 bg-white dark:text-black border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                             rows={4} 
                         />
                     );
@@ -93,7 +93,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
                             [getcontrolItem.name] : event.target.value
                         })}
 
-                        className="w-full placeholder-black  px-3 py-2 bg-yellow-200 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                        className="w-full placeholder-black  px-3 py-2 bg-white dark:text-black border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                 )
                 break;
@@ -114,7 +114,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
                 }
             </div>
             
-            <button disabled={isBtnDisabled} type="submit" className={`px-4 py-2 mt-10 w-full ${isBtnDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>{buttonText || 'Submit'}</button>
+            <button disabled={isBtnDisabled} type="submit" className={`px-4 py-2 mt-10 w-full dark:bg-violet-950 dark:text-white dark:hover:bg-slate-200 dark:hover:text-black ${isBtnDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>{buttonText || 'Submit'}</button>
         </form>
     )
 }

@@ -64,7 +64,7 @@ const AdminOrdersDetailsView = ({ orderDetails }) => {
           </div>
           <div className="flex mt-2 items-center justify-between">
             <p className="font-medium">Order Status</p>
-            <Label><Badge className={`py-1 px-3 ${orderDetails?.orderStatus === 'Confirmed'  ? 'bg-green-500' : orderDetails?.orderStatus === 'rejected' ? 'bg-red-600' : 'bg-black' }`} >{orderDetails?.orderStatus}</Badge></Label>
+            <Label><Badge className={`py-1 px-3 ${orderDetails?.orderStatus === 'Confirmed'  ? 'bg-green-500 dark:text-white' : orderDetails?.orderStatus === 'rejected' ? 'bg-red-600 dark:text-white' : 'bg-black dark:text-white' }`} >{orderDetails?.orderStatus}</Badge></Label>
           </div>
         </div>
         <Separator />

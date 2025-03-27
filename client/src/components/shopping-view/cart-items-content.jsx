@@ -80,12 +80,12 @@ function UserCartItemsContent({ cartItem }) {
         <div className="flex-1">
             <h3 className="font-extrabold">{cartItem?.title}</h3>
             <div className="flex items-center gap-3 mt-1">
-                <Button variant='outline' disabled={cartItem?.quantity === 1} className='w-5 h-5 rounded-full text-black hover:text-white hover:bg-black' size='icon' onClick={() => hadleUpdateQuantity(cartItem, 'minus')}>
+                <Button variant='outline' disabled={cartItem?.quantity === 1} className='w-5 h-5 rounded-full text-black hover:text-white hover:bg-black dark:text-white dark:hover:text-black dark:hover:bg-white' size='icon' onClick={() => hadleUpdateQuantity(cartItem, 'minus')}>
                     <Minus className="w-4 h-4" />
                     <span className="sr-only">Decrease</span>
                 </Button>
                 <span className="font-semibold">{cartItem?.quantity}</span>
-                <Button variant='outline' className='w-5 h-5 rounded-full text-black hover:text-white hover:bg-black' size='icon' onClick={() => hadleUpdateQuantity(cartItem, 'plus')}>
+                <Button variant='outline' className='w-5 h-5 rounded-full text-black hover:text-white hover:bg-black dark:text-white dark:hover:text-black dark:hover:bg-white' size='icon' onClick={() => hadleUpdateQuantity(cartItem, 'plus')}>
                     <Plus className="w-4 h-4" />
                     <span className="sr-only">Increase</span>
                 </Button>

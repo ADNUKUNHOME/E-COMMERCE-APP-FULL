@@ -129,7 +129,7 @@ function ShoppingListing() {
                         <span className="text-muted-foreground">{productList?.length} Products</span>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant='outline' size='sm' className='flex items-center gap-1 text-black'>
+                                <Button variant='outline' size='sm' className='flex items-center gap-1 text-black dark:text-white'>
                                     <ArrowUpDownIcon className="w-4 h-4" />
                                     <span>Sort By</span>
                                 </Button>

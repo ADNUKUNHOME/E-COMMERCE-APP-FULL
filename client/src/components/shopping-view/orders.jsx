@@ -51,7 +51,7 @@ const ShoppingOrders = () => {
                 orderList.map(orderItem => <TableRow>
                   <TableCell>{orderItem?._id}</TableCell>
                   <TableCell>{orderItem?.orderDate.split('T')[0]}</TableCell>
-                  <TableCell><Badge className={`py-1 px-3 ${orderItem?.orderStatus === 'Confirmed' ? 'bg-green-500' : orderItem?.orderStatus === 'rejected' ? 'bg-red-600' : 'bg-black' }`}>{orderItem?.orderStatus}</Badge>  </TableCell>
+                  <TableCell><Badge className={`py-1 px-3 ${orderItem?.orderStatus === 'Confirmed' ? 'bg-green-500 dark:text-white' : orderItem?.orderStatus === 'rejected' ? 'bg-red-600 dark:text-white' : 'bg-black dark:text-white' }`}>{orderItem?.orderStatus}</Badge>  </TableCell>
                   <TableCell>{orderItem?.totalAmount}</TableCell>
                   <TableCell>
                     <Dialog open={openDetailsDialog} onOpenChange={()=> {

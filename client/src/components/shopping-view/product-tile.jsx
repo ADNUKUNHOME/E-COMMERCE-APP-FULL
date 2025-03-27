@@ -13,7 +13,7 @@ function ShoppingProductTile({ product, handleGetProductDetails, handleAddToCart
 
                         src={product?.image}
                         alt={product?.title}
-                        className="w-full h-[300px] object-cover rounded-t-lg"
+                        className="w-full h-[300px] object-cover rounded-t-lg "
                     />
 
                     {
@@ -44,7 +44,7 @@ function ShoppingProductTile({ product, handleGetProductDetails, handleAddToCart
                     product?.totalStock === 0 ? (
                         <Button className='w-full hover:bg-white hover:text-black opacity-60 cursor-not-allowed'>Out Of Stock</Button>
                     ) : (
-                        <Button onClick={() => handleAddToCart(product?._id, product?.totalStock)} className='w-full hover:bg-white hover:text-black'>Add To Cart</Button>
+                        <Button onClick={() => handleAddToCart(product?._id, product?.totalStock)} className='w-full hover:bg-white hover:text-black dark:bg-violet-900 dark:text-white dark:hover:bg-white dark:hover:text-black'>Add To Cart</Button>
                     )
                 }
 
