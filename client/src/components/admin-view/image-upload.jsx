@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 
 
-function ProductImageUpload({imageFile, setImageFile, uploadedImageUrl, imageLoadingState,  setUploadedImageUrl, setImageLoadingState, isEditMode }) {
+function ProductImageUpload({imageFile, setImageFile, uploadedImageUrl, imageLoadingState,  setUploadedImageUrl, setImageLoadingState, isEditMode, isCustomStyling= false }) {
 
     const inputRef = useRef(null);
 
@@ -39,7 +39,7 @@ function ProductImageUpload({imageFile, setImageFile, uploadedImageUrl, imageLoa
     }
 
     async function uploadImageToCloudinary() {
-        setImageLoadingState(true); // Show Skeleton
+        setImageLoadingState(true);
         try {
             const data = new FormData();
             data.append('file', imageFile);
@@ -55,7 +55,7 @@ function ProductImageUpload({imageFile, setImageFile, uploadedImageUrl, imageLoa
         } catch (error) {
             console.error("Error uploading image:", error);
         } finally {
-            setImageLoadingState(false); // Hide Skeleton after success or failure
+            setImageLoadingState(false);
         }
     }
     
@@ -65,7 +65,7 @@ function ProductImageUpload({imageFile, setImageFile, uploadedImageUrl, imageLoa
     }, [imageFile])
 
     return (
-        <div className="w-full max-w-md mx-auto">
+        <div className={`w-full mt-4 ${isCustomStyling ? '' : 'max-w-md mx-auto'}`}>
             <Label className="text-lg font-semibold  mb-2 block mt-4">Upload Image</Label>
             <div onDragOver={handleDragOver} onDrop={handleDrop} className={`${isEditMode ? "opacity-60" : ''} border-2 border-dashed rounded-lg p-4`}>
                 <Input 

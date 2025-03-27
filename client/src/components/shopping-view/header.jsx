@@ -69,8 +69,9 @@ function RightHeaderContent() {
 
     return <div className="flex flex-col lg:items-center lg:flex-row gap-4">
         <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
-            <Button onClick={() => setOpenCartSheet(true)} variant='outline' className='text-black' size='icon'>
+            <Button onClick={() => setOpenCartSheet(true)} variant='outline' className='text-black relative' size='icon'>
                 <ShoppingCart className="w-6 h-6" />
+                <span className='absolute top-[-5px] right-[2px] text-sm font-bold'>{cartItems?.items?.length}</span>
                 <span className="sr-only">Cart</span>
             </Button>
             <UserCartWrapper setOpenCartSheet={setOpenCartSheet} cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}  />

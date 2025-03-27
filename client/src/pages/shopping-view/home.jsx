@@ -11,14 +11,15 @@ import { useNavigate } from 'react-router-dom';
 import { addToCart, fetchCartItems } from '@/store/shope/cart-slice';
 import { useToast } from '@/hooks/use-toast';
 import ProductDetailsDialog from '@/components/shopping-view/product-details';
+import { getFeatureImages } from '@/store/admin/feature-slice';
 
 function ShoppingHome() {
 
     const [currentSlide, setCurrentSlide] = useState(0);
-    const slides = [banner, banner_1];
     const { productList, productDetails } = useSelector(state => state.shopeProducts);
     const [openDetaisDialog, setOpenDetaisDialog] = useState(false);
-    const { user } = useSelector(state => state.auth)
+    const { user } = useSelector(state => state.auth);
+    const { featureImageList } = useSelector(state => state.commonFeature);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
@@ -67,18 +68,18 @@ function ShoppingHome() {
         })
     }
 
-     useEffect(() => {
-            if(productDetails !== null) setOpenDetaisDialog(true)
-        }, [productDetails])
-    
+    useEffect(() => {
+        if (productDetails !== null) setOpenDetaisDialog(true)
+    }, [productDetails])
+
 
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length)
-        }, 5000)
+            setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length)
+        }, 3000)
         return () => clearInterval(timer)
-    }, [])
+    }, [featureImageList])
 
 
     useEffect(() => {
@@ -86,6 +87,12 @@ function ShoppingHome() {
     }, [])
 
 
+    useEffect(() => {
+        dispatch(getFeatureImages());
+    }, [dispatch])
+
+    console.log(featureImageList, 'featureImageList');
+    
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -94,26 +101,26 @@ function ShoppingHome() {
                     <p>We Picked Every Item</p>
                     <p>With Care, <span className='font-bold text-gray-800'>You Must Try</span></p>
                     <p>At least once</p>
-                    <button className='py-3 px-7 flex gap-2 text-sm mt-4'>Go To Collections <ArrowRight /></button>
+                    <button onClick={() => navigate('/shope/listing')} className='py-3 px-7 flex gap-2 text-sm mt-4'>Go To Collections <ArrowRight /></button>
                 </div>
 
                 {/* Image Slider */}
                 <div className="relative w-[50%] h-full">
-                    {slides.map((slide, index) => (
+                    {featureImageList && featureImageList.length > 0 ? featureImageList.map((slide, index) => (
                         <img
                             key={index}
-                            src={slide}
+                            src={slide.image}
                             className={`absolute justify-self-center object-cover transition-opacity duration-700 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
                             alt="home-banner"
                         />
-                    ))}
+                    )) : null}
                 </div>
 
                 {/* Slider Buttons */}
                 <Button
                     variant='outline'
                     size='icon'
-                    onClick={() => setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length)}
+                    onClick={() => setCurrentSlide((prevSlide) => (prevSlide - 1 + featureImageList.length) % featureImageList.length)}
                     className='absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80 text-black'
                 >
                     <ChevronLeftIcon />
@@ -121,7 +128,7 @@ function ShoppingHome() {
                 <Button
                     variant='outline'
                     size='icon'
-                    onClick={() => setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length)}
+                    onClick={() => setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length)}
                     className='absolute top-1/2 right-6 transform -translate-y-1/2 bg-white/80 text-black'
                 >
                     <ChevronRightIcon />
@@ -159,7 +166,7 @@ function ShoppingHome() {
             </section>
             <section className="py-12">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold mb-8 text-center">Shop By Category</h2>
+                    <h2 className="text-3xl font-bold mb-8 text-center">Shop Everywhere</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {
                             productList && productList.length > 0 ?

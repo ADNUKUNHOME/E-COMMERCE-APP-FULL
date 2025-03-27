@@ -4,12 +4,14 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import AdminProductsSlice from './admin/products-slice'
 import AdminOrdersSlice from './admin/order-slice'
+import CommonFeatureSlice from './admin/feature-slice'
 
 import shopeProductsSlice from './shope/products-slice'
 import shopeCartSlice from './shope/cart-slice'
 import shopeAddressSlice from './shope/address-slice'
 import shopeOrderSlice from './shope/order-slice'
 import shopeSearchSlice from './shope/search-slice'
+import shopeReviewSlice from './shope/review-slice'
 
 const persistConfig = {
     key: 'auth',
@@ -25,19 +27,21 @@ const store = configureStore({
 
         adminProducts: AdminProductsSlice,
         adminOrders: AdminOrdersSlice,
+        commonFeature: CommonFeatureSlice,
         
         shopeProducts: shopeProductsSlice,
         shopeCart: shopeCartSlice,
         shopeAddress: shopeAddressSlice,
         shopeOrder: shopeOrderSlice,
         shopeSearch: shopeSearchSlice,
+        shopeReview: shopeReviewSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: false, // Required for Redux Persist
+            serializableCheck: false, 
         }),
 });
 
-export const persistor = persistStore(store); // Persistor to be used in App.js
+export const persistor = persistStore(store);
 
 export default store;
