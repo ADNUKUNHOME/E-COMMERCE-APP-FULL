@@ -1,19 +1,24 @@
-import { logoutnUser } from "@/store/auth-slice";
+import { logoutnUser, resetTokenAndCredentials } from "@/store/auth-slice";
 import { AlignJustify, LogOut } from "lucide-react";
 import { useDispatch } from "react-redux";
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/Context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 
 function AdminHeader({ setOpen }) {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
 
 
   function handleLogout() {
-    dispatch(logoutnUser());
+    // dispatch(logoutnUser());
+    dispatch(resetTokenAndCredentials());
+    sessionStorage.clear();
+    navigate('/auth/login');
   }
 
   return (

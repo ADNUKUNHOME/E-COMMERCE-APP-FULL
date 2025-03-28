@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { shoppingViewHeaderMenuItems } from "@/config";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { logoutnUser } from "@/store/auth-slice";
+import { logoutnUser, resetTokenAndCredentials } from "@/store/auth-slice";
 import UserCartWrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
 import { fetchCartItems } from "@/store/shope/cart-slice";
@@ -65,7 +65,10 @@ function RightHeaderContent() {
 
 
     function handleLogout() {
-        dispatch(logoutnUser());
+        // dispatch(logoutnUser());
+        dispatch(resetTokenAndCredentials());
+        sessionStorage.clear();
+        navigate('/auth/login');
     }
 
     useEffect(() => {

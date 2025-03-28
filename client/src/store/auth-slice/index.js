@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { data } from 'autoprefixer';
 import axios from 'axios';
 // import { buildErrorMessage } from 'vite';
 
@@ -7,7 +6,8 @@ import axios from 'axios';
 const initialState = {
   isAuthenticated: false,
   isLoading: false,
-  user: null
+  user: null,
+  token: null
 }
 
 export const registerUser = createAsyncThunk(
@@ -58,21 +58,40 @@ export const logoutnUser = createAsyncThunk(
 );
 
 
+// export const checkAuth = createAsyncThunk(
+//   "/auth/checkauth",
+//   async (_, thunkAPI) => {
+//       try {
+//           const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/check-auth`, {
+//               withCredentials: true, 
+//               headers: {
+//                   "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+
+//               },
+//           });
+//           return response.data;
+//       } catch (error) {
+//           return thunkAPI.rejectWithValue(error.response?.data || "Auth check failed");
+//       }
+//   }
+// );
+
+
 export const checkAuth = createAsyncThunk(
   "/auth/checkauth",
-  async (_, thunkAPI) => {
-      try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/check-auth`, {
-              withCredentials: true, 
-              headers: {
-                  "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-                 
-              },
-          });
-          return response.data;
-      } catch (error) {
-          return thunkAPI.rejectWithValue(error.response?.data || "Auth check failed");
-      }
+  async (token, thunkAPI) => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/check-auth`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || "Auth check failed");
+    }
   }
 );
 
@@ -86,6 +105,11 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
     },
+    resetTokenAndCredentials: (state) => {
+      state.isAuthenticated = false,
+        state.user = null,
+        state.token = null
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -119,13 +143,16 @@ const authSlice = createSlice({
 
 
         state.isLoading = false;
-        state.user = action.payload.success ? action.payload.user : null; // Set user from API response
+        state.user = action.payload.success ? action.payload.user : null;
         state.isAuthenticated = action.payload.success ? true : false;
+        state.token = action.payload.token;
+        sessionStorage.setItem('token', JSON.stringify(action.payload.token));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload; // Set error message
+        state.error = action.payload;
         state.isAuthenticated = false;
+        state.token = null;
       })
 
 
@@ -141,10 +168,10 @@ const authSlice = createSlice({
           state.user = action.payload.user;
           state.isAuthenticated = true;
           localStorage.setItem("user", JSON.stringify(action.payload.user));
-      } else {
+        } else {
           state.user = null;
           state.isAuthenticated = false;
-      }
+        }
       })
       .addCase(checkAuth.rejected, (state, action) => {
         state.isLoading = false;
@@ -154,11 +181,11 @@ const authSlice = createSlice({
 
 
         state.isLoading = false;
-        state.user = null; 
+        state.user = null;
         state.isAuthenticated = false;
       })
   },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, resetTokenAndCredentials } = authSlice.actions;
 export default authSlice.reducer;
