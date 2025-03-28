@@ -121,7 +121,7 @@ function ShoppingHeader() {
         <div className="flex h-full items-center justify-between px-4 md:px-6">
             <Link to="/shope/home" className="flex items-center gap-2 text-black dark:text-white" >
                 <HousePlug className="h-6 w-6" />
-                <span className="font-bold">ECOMMERCE</span>
+                <span className="font-bold">SHOPPIE</span>
             </Link>
             <Sheet>
                 <SheetTrigger asChild >

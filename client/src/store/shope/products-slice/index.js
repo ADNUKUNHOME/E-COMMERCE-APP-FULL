@@ -25,7 +25,7 @@
                 query.set("sortBy", sortParams);
             }
     
-            const apiUrl = `http://localhost:5000/api/shope/products/get?${query.toString()}`;
+            const apiUrl = `${import.meta.env.VITE_API_URL}/api/shope/products/get?${query.toString()}`;
             
             console.log("🛠️ API Call URL:", apiUrl);
     
@@ -42,7 +42,7 @@
         async (id) => {
     
     
-            const result = await axios.get(`http://localhost:5000/api/shope/products/get/${id}`);
+            const result = await axios.get(`${import.meta.env.VITE_API_URL}/api/shope/products/get/${id}`);
     
             return result?.data;
         }

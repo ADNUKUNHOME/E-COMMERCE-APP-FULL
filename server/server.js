@@ -27,7 +27,7 @@ const PORT = process.env.PORT || 5000;
 
 App.use(
     cors({
-        origin: 'http://localhost:5173',
+        origin: process.env.CLIENT_BASE_URL,
         methods: ['GET', 'POST', 'DELETE', 'PUT'],
         allowedHeaders: [
             "Content-Type",
@@ -55,4 +55,4 @@ App.use('/api/shope/review', shopReviewRouter);
 
 App.use('/api/common/feature', commonFeatureRoutes);
 
-App.listen(PORT, () => console.log('Server is running on the port 5000'));
+App.listen(PORT, () => console.log(`Server is running on the port ${PORT}`));
