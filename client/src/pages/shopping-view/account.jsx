@@ -14,14 +14,16 @@ function ShoppingAccount() {
                 <div className="flex flex-col rounded-lg border bg-background p-6 shadow-sm">
                     <Tabs defaultValue='orders'>
                         <TabsList>
-                            <TabsTrigger value='orders'>Orders</TabsTrigger>
-                            <TabsTrigger value='address'>Address</TabsTrigger>
+                            <TabsTrigger className="bg-gray-200 text-black dark:bg-gray-800 dark:text-white px-4 py-2 rounded-md"
+                                value='orders'>Orders</TabsTrigger>
+                            <TabsTrigger className="bg-gray-200 text-black dark:bg-gray-800 dark:text-white px-4 py-2 rounded-md"
+                                value='address'>Address</TabsTrigger>
                         </TabsList>
                         <TabsContent value='orders'>
-                            <ShoppingOrders/>
+                            <ShoppingOrders />
                         </TabsContent>
                         <TabsContent value='address'>
-                            <Address/>
+                            <Address />
                         </TabsContent>
                     </Tabs>
                 </div>

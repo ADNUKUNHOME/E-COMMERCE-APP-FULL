@@ -114,7 +114,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
                 }
             </div>
             
-            <button disabled={isBtnDisabled} type="submit" className={`px-4 py-2 mt-10 w-full dark:bg-violet-950 dark:text-white dark:hover:bg-slate-200 dark:hover:text-black ${isBtnDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>{buttonText || 'Submit'}</button>
+            <button disabled={isBtnDisabled} type="submit" className={`px-4 py-2 mt-10 w-full bg-black text-white dark:bg-violet-950 dark:text-white dark:hover:bg-slate-200 dark:hover:text-black ${isBtnDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>{buttonText || 'Submit'}</button>
         </form>
     )
 }

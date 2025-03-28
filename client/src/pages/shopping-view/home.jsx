@@ -1,6 +1,4 @@
 import { Activity, Anchor, ArrowRight, BabyIcon, ChevronLeftIcon, ChevronRightIcon, CloudLightning, LibraryBig, Loader, MousePointerBan, ShirtIcon, Tent, UmbrellaIcon, WatchIcon } from 'lucide-react';
-import banner from '../../assets/banner.png';
-import banner_1 from '../../assets/banner_1.png';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
@@ -97,15 +95,15 @@ function ShoppingHome() {
     return (
         <div className="flex flex-col min-h-screen">
             <div className="relative flex justify-between w-full h-[600px] overflow-hidden bg-gradient-to-r from-violet-200 to-pink-200 dark:bg-gradient-to-r dark:from-violet-700 dark:to-pink-700">
-                <div className="flex flex-col pl-20 gap-5 items-center justify-center sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-gray-600 dark:text-gray-400">
+                <div className="hidden md:flex flex-col pl-20 gap-5 items-center justify-center sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-gray-600 dark:text-gray-400">
                     <p>We Picked Every Item</p>
                     <p>With Care, <span className='font-bold text-gray-800'>You Must Try</span></p>
                     <p>At least once</p>
-                    <button onClick={() => navigate('/shope/listing')} className='py-3 px-7 flex gap-2 text-sm mt-'>Go To Collections <ArrowRight /></button>
+                    <button onClick={() => navigate('/shope/listing')} className='py-3 px-7 flex gap-2 text-sm bg-black text-white dark:bg-gray-800 dark:text-white'>Go To Collections <ArrowRight /></button>
                 </div>
 
                 {/* Image Slider */}
-                <div className="relative w-[50%] h-full">
+                <div className="relative w-full  md:w-[50%] h-full">
                     {featureImageList && featureImageList.length > 0 ? featureImageList.map((slide, index) => (
                         <img
                             key={index}
