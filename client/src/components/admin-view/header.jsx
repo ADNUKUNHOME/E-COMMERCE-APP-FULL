@@ -2,8 +2,8 @@ import { logoutnUser } from "@/store/auth-slice";
 import { AlignJustify, LogOut } from "lucide-react";
 import { useDispatch } from "react-redux";
 
-import { useTheme } from "@/context/ThemeContext";
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@/Context/ThemeContext";
 
 
 function AdminHeader({ setOpen }) {
