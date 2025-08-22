@@ -1,4 +1,5 @@
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/a0eaf884-9625-4a79-a410-b91546e2bed2" /># 🛒 E-commerce Web App  
+# 🛒 E-commerce Web App
+
 
 A **full-featured E-commerce platform** built with the **MERN Stack** and styled with **Tailwind CSS**.  
 Designed not just to function, but to impress — combining clean UI, seamless user experience, and solid performance.  
