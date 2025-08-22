@@ -1,4 +1,4 @@
-# 🛒 E-commerce Web App  
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/a0eaf884-9625-4a79-a410-b91546e2bed2" /># 🛒 E-commerce Web App  
 
 A **full-featured E-commerce platform** built with the **MERN Stack** and styled with **Tailwind CSS**.  
 Designed not just to function, but to impress — combining clean UI, seamless user experience, and solid performance.  
@@ -62,12 +62,13 @@ npm start
 
 ## 🔹 Environment Variables
 
-###Create .env files in backend and frontend folder and add:
-
-client/ .env
+### client/.env  
+```bash
 VITE_API_URL=http://your-backend-baseurl.com
+```
 
-server/ .env
+### server/.env
+```bash
 CLIENT_BASE_URL=http://your-frontend-baseurl.com
 CLIENT_SECRET_KEY=**********
 CLOUD_NAME=*******
@@ -75,8 +76,9 @@ CLOUDINARY_API_KEY=********
 CLOUDINARY_API_SECRET=********
 MONGO_URI=*********
 PAYPAL_CLIENT_SECRET=********
-PAYPAL_CLINET_ID=********
-PORT=5000 or any
+PAYPAL_CLIENT_ID=********
+PORT=5000
+```
 
 ## 🤝 Contributing
 
